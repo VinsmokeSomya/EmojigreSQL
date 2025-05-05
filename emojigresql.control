@@ -1,0 +1,5 @@
+# emojigresql extension
+comment = 'EmojigreSQL - Encode/Decode data as Emojis in PostgreSQL'
+default_version = '1.0'
+superuser = false
+schema = emojigresql 
