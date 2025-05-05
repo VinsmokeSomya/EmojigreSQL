@@ -13,11 +13,7 @@
 3.  [Installation & Usage (Docker - Recommended)](#installation-docker) 🐳
 4.  [Installation (Manual)](#installation-manual) ⚙️
 5.  [Usage](#usage) 💡
-6.  [API Documentation](#api) 📚
-    *   [`emojigresql.encode(bytea) → text`](#api-emoji-encode)
-    *   [`emojigresql.decode(text) → bytea`](#api-emoji-decode)
-    *   [`emojigresql.from_text(text) → text`](#api-emoji-from-text)
-    *   [`emojigresql.to_text(text) → text`](#api-emoji-to-text)
+6.  [Documentation](#documentation) 📚
 7.  [Project Structure](#file-structure) 📁
 
 ---
@@ -167,117 +163,9 @@ Now you're ready to use the `EmojigreSQL` functions!
 
 ---
 
-<h2 id="api">📚 6. API Documentation</h2>
+<h2 id="documentation">📚 6. DOCUMENTATION</h2>
 
-<h3 id="api-emoji-encode"><code>emojigresql.encode(bytea) → text</code></h3>
-
-Encodes binary data (`bytea`) into an emoji string (`text`).
-
-**Example:**
-
-```sql
-SELECT emoji.encode('\x0123456789abcdef'::bytea);
-```
-
-**Result:**
-
-```
-  encode
-----------
- 👦😀🥺🪀🦠🖖🌌🥚
-(1 row)
-```
-
-> **Checksum Feature:** Even a minor change in the input `bytea` significantly alters the output. Notice how changing the last byte from `ef` to `e7` modifies not only the last emoji but also the **first (header) emoji** due to the 9-bit checksum. This provides a 99.8% (511/512) confidence rate in detecting data changes.
-
-**Example with changed byte:**
-
-```sql
-SELECT emoji.encode('\x0123458789abcde7'::bytea);
-```
-
-**Result:**
-
-```
-  encode
-----------
- 💜😀🥺🪀🍼🖖🌌🍕
-(1 row)
-```
-
-<h3 id="api-emoji-decode"><code>emojigresql.decode(text) → bytea</code></h3>
-
-Decodes an emoji string (`text`) back into binary data (`bytea`).
-
-**Example:**
-
-```sql
-SELECT emoji.decode('👦😀🥺🪀🦠🖖🌌🥚');
-```
-
-**Result:**
-
-```
-       decode
---------------------
- \x0123456789abcdef
-(1 row)
-```
-
-> **Checksum Verification:** The checksum embedded in the first emoji helps ensure data integrity. If the emoji sequence is incomplete or altered, the decode function will likely detect the mismatch and return `NULL`.
-
-**Example with incomplete input:**
-
-```sql
-SELECT emoji.decode('👦😀🥺🪀🦠🖖🌌'); -- Missing the last emoji '🥚'
-```
-
-**Result:**
-
-```
- decode
---------
- NULL
-(1 row)
-```
-
-<h3 id="api-emoji-from-text"><code>emojigresql.from_text(text) → text</code></h3>
-
-Encodes a standard text string into an emoji string.
-
-**Example:**
-
-```sql
-SELECT emoji.from_text('Hello 🌎!');
-```
-
-**Result:**
-
-```
- from_text
-------------
- 🦳🥺🐞🕰🎐🎗📷🧂🎖🫖
-(1 row)
-```
-
-<h3 id="api-emoji-to-text"><code>emojigresql.to_text(text) → text</code></h3>
-
-Decodes an emoji string back into its original text representation.
-
-**Example:**
-
-```sql
-SELECT emoji.to_text('🦳🥺🐞🕰🎐🎗📷🧂🎖🫖');
-```
-
-**Result:**
-
-```
- to_text
-----------
- Hello 🌎!
-(1 row)
-```
+Detailed documentation for all functions (`encode`, `decode`, `from_text`, `to_text`) can be found in the [DOCUMENTATION.md](./docs/DOCUMENTATION.md#4-api-reference-) file.
 
 ---
 
@@ -285,24 +173,27 @@ SELECT emoji.to_text('🦳🥺🐞🕰🎐🎗📷🧂🎖🫖');
 
 ```
 .
-├── Dockerfile                # Defines the Docker build process
-├── Makefile                  # Build instructions for the extension
-├── README.md                 # This file
-├── complain_header.sql       # SQL header included in the extension script
-├── emojigresql.control       # Extension control file
-├── fetch-chars.sh            # Script to download emoji list for the table
-├── emoji-chars.sql           # (Old generated file, can be ignored/deleted)
-├── FUNCTIONS/                # Directory containing SQL function definitions
-│   ├── decode.sql
-│   ├── encode.sql
-│   ├── from_text.sql
-│   └── to_text.sql
-├── sql/                      # Directory for test SQL scripts
-│   └── test.sql
-├── TABLES/                   # Directory for table definitions
-│   └── chars.sql
-├── expected/                 # Expected output for tests
-├── results/                  # Actual output from tests
-├── .git/                     # Git directory
-└── .gitignore                # Files ignored by Git (if present)
+├── Dockerfile                # 🐳 Defines the Docker build process
+├── Makefile                  # 🛠️ Build instructions for the extension
+├── README.md                 # 📖 This file
+├── build.ps1                 # 🪟 Windows PowerShell build script
+├── complain_header.sql       # ⚠️ SQL header included in the extension script
+├── emojigresql.control       # 🔩 Extension control file
+├── fetch-chars.sh            # 🌐 Script to download emoji list for the table
+├── emoji-chars.sql           # 🗑️ (Old generated file, can be ignored/deleted)
+├── FUNCTIONS/                # ✨ Directory containing SQL function definitions
+│   ├── decode.sql            # ➡️ Decodes emojis to data
+│   ├── encode.sql            # ⬅️ Encodes data to emojis
+│   ├── from_text.sql         # 📝 Encodes text to emojis
+│   └── to_text.sql           # 📖 Decodes emojis to text
+├── sql/                      # 🧪 Directory for test SQL scripts
+│   └── test.sql              # ▶️ Main test script
+├── TABLES/                   # 📊 Directory for table definitions
+│   └── chars.sql             # 📋 Emoji character lookup table definition
+├── expected/                 # ✅ Expected output for tests
+├── results/                  # 📉 Actual output from tests
+├── .git/                     # 📁 Git directory
+└── .gitignore                # 🙈 Files ignored by Git (if present)
 ```
+
+*by VinsmokeSomya*
