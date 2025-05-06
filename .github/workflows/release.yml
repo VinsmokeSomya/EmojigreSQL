@@ -57,11 +57,7 @@ jobs:
           # GITHUB_TOKEN is provided by default.
           tag_name: ${{ steps.get_tag.outputs.tag }} # Use the tag that triggered the workflow
           name: Release ${{ steps.get_tag.outputs.tag }} # Name the release e.g., "Release v1.0.1"
-          # body: | # Optional: Add custom release notes here or leave blank for auto-generated
-          #  Release notes for ${{ steps.get_tag.outputs.tag }}
-          #
-          #  - Feature A
-          #  - Bugfix B
+          body_path: RELEASE_NOTES.md # Path to your notes file
           draft: false
           prerelease: false
-          generate_release_notes: true # Uncomment if you want automatic release notes based on PRs 
+          # generate_release_notes: true # Ensure this is commented out or removed 
