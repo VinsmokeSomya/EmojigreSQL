@@ -41,7 +41,7 @@ jobs:
             type=semver,pattern={{version}} # Use the Git tag directly (e.g., v1.0.1)
             type=semver,pattern={{major}}.{{minor}} # e.g., v1.0
             type=semver,pattern={{major}} # e.g., v1
-            type=sha # Add git sha tag
+            # type=sha # Add git sha tag
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
