@@ -1,6 +1,6 @@
 <!-- RELEASE_NOTES.md -->
 
-# 🎉 EmojigreSQL v1.0.3 🎉
+# 🎉 EmojigreSQL v1.0.4 🎉
 
 
 ## 📜 Overview
@@ -23,12 +23,12 @@ EmojigreSQL is a pure SQL PostgreSQL extension that allows you to seamlessly enc
 
 ```bash
 # Pull the image for this release
-docker pull ghcr.io/vinsmokesomya/emojigresql:v1.0.3
+docker pull ghcr.io/vinsmokesomya/emojigresql:v1.0.4
 ```
 
 ```bash
 # Run the container (replace YOUR_STRONG_PASSWORD)
-docker run --name emojigresql-db -e POSTGRES_PASSWORD=YOUR_STRONG_PASSWORD -p 5432:5432 -d ghcr.io/vinsmokesomya/emojigresql:v1.0.3
+docker run --name emojigresql-db -e POSTGRES_PASSWORD=YOUR_STRONG_PASSWORD -p 5432:5432 -d ghcr.io/vinsmokesomya/emojigresql:v1.0.4
 ```
 
 ```bash
