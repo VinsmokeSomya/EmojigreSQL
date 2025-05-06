@@ -64,4 +64,4 @@ jobs:
           #  - Bugfix B
           draft: false
           prerelease: false
-          # generate_release_notes: true # Uncomment if you want automatic release notes based on PRs 
+          generate_release_notes: true # Uncomment if you want automatic release notes based on PRs 
